@@ -1,6 +1,7 @@
-import { useEffect, useReducer, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import users from "../Data/Users.json";
-import { getUserInitialData, userReducer } from "../Reducers/User";
+
+import { userContext } from "../App";
 
 console.log(users);
 
@@ -8,11 +9,7 @@ const Login = () => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [loginError, setLoginError] = useState(null);
-  const [userState, userDispatch] = useReducer(
-    userReducer,
-    getUserInitialData()
-  );
-  console.log(userState);
+  const { userState, userDispatch } = useContext(userContext);
 
   const checkCredentials = () => {
     if (

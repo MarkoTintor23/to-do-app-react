@@ -30,6 +30,7 @@ const Login = () => {
         setLoginError(null);
         userDispatch({ type: "SET_USERNAME", payload: username });
         userDispatch({ type: "SET_LOGGED_IN", payload: true });
+        userDispatch({ type: "SET_LOGIN_TIME", payload: new Date().getTime() });
       }
     });
     if (!foundUser) {
@@ -44,22 +45,24 @@ const Login = () => {
   }, [userState]);
   return (
     <>
-      <p>{loginError}</p>
-      <form>
-        <input
-          onInput={(e) => setUsername(e.currentTarget.value)}
-          placeholder="Enter your username"
-          type="text"
-        />
-        <input
-          onInput={(e) => setPassword(e.currentTarget.value)}
-          placeholder="Enter your password"
-          type="password"
-        />
-        <button type="button" onClick={checkCredentials}>
-          Login
-        </button>
-      </form>
+      {!userState.isLoggedIn && (
+        <form>
+          <p>{loginError}</p>
+          <input
+            onInput={(e) => setUsername(e.currentTarget.value)}
+            placeholder="Enter your username"
+            type="text"
+          />
+          <input
+            onInput={(e) => setPassword(e.currentTarget.value)}
+            placeholder="Enter your password"
+            type="password"
+          />
+          <button type="button" onClick={checkCredentials}>
+            Login
+          </button>
+        </form>
+      )}
     </>
   );
 };
